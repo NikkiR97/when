@@ -1,0 +1,79 @@
+001 BEGIN {Calculate the square root of 4 using Newton's method.}
+002     number := 144;
+003     root := number;
+004 
+005     WHILE root*root - number > 0.000001 DO BEGIN
+006         root := (number/root + root)/2
+007     END
+008 END.
+
+                   8 source lines.
+                   0 syntax errors.
+                0.00 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+Identifier       Line numbers    
+----------       ------------    
+number           002 003 005 006
+root             003 005 005 006 006 006
+
+===== INTERMEDIATE CODE =====
+
+<COMPOUND line="1">
+    <ASSIGN line="2">
+        <VARIABLE id="number" level="0" />
+        <INTEGER_CONSTANT value="144" />
+    </ASSIGN>
+    <ASSIGN line="3">
+        <VARIABLE id="root" level="0" />
+        <VARIABLE id="number" level="0" />
+    </ASSIGN>
+    <LOOP line="5">
+        <TEST>
+            <NOT>
+                <GT>
+                    <SUBTRACT>
+                        <MULTIPLY>
+                            <VARIABLE id="root" level="0" />
+                            <VARIABLE id="root" level="0" />
+                        </MULTIPLY>
+                        <VARIABLE id="number" level="0" />
+                    </SUBTRACT>
+                    <REAL_CONSTANT value="0.000001" />
+                </GT>
+            </NOT>
+        </TEST>
+        <COMPOUND line="5">
+            <ASSIGN line="6">
+                <VARIABLE id="root" level="0" />
+                <FLOAT_DIVIDE>
+                    <ADD>
+                        <FLOAT_DIVIDE>
+                            <VARIABLE id="number" level="0" />
+                            <VARIABLE id="root" level="0" />
+                        </FLOAT_DIVIDE>
+                        <VARIABLE id="root" level="0" />
+                    </ADD>
+                    <INTEGER_CONSTANT value="2" />
+                </FLOAT_DIVIDE>
+            </ASSIGN>
+        </COMPOUND>
+    </LOOP>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 002: number = 144
+>>> LINE 003: root = 144
+>>> LINE 006: root = 72.500000
+>>> LINE 006: root = 37.243103
+>>> LINE 006: root = 20.554796
+>>> LINE 006: root = 13.780231
+>>> LINE 006: root = 12.114992
+>>> LINE 006: root = 12.000546
+>>> LINE 006: root = 12.000000
+
+                  17 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.

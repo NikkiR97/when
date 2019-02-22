@@ -1,0 +1,260 @@
+001 BEGIN {CASE statements}
+002     i := 3;  ch := 'b';
+003 
+004     CASE i+1 OF
+005         1:       j := i;
+006         4:       j := 4*i;
+007         5, 2, 3: j := 523*i;
+008     END;
+009 
+010     CASE ch OF
+011         'c', 'b' : str := 'p';
+012         'a'      : str := 'q'
+013     END;
+014 
+015     FOR i := -5 TO 15 DO BEGIN
+016         CASE i OF
+017             2: prime := i;
+018             -4, -2, 0, 4, 6, 8, 10, 12: even := i;
+019             -3, -1, 1, 3, 5, 7, 9, 11:  CASE i OF
+020                                             -3, -1, 1, 9:   odd := i;
+021                                             2, 3, 5, 7, 11: prime := i;
+022                                         END
+023         END
+024     END
+025 END.
+
+                  25 source lines.
+                   0 syntax errors.
+                0.00 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+Identifier       Line numbers    
+----------       ------------    
+ch               002 010
+even             018
+i                002 004 005 006 007 015 016 017 018 019 020 021
+j                005 006 007
+odd              020
+prime            017 021
+str              011 012
+
+===== INTERMEDIATE CODE =====
+
+<COMPOUND line="1">
+    <ASSIGN line="2">
+        <VARIABLE id="i" level="0" />
+        <INTEGER_CONSTANT value="3" />
+    </ASSIGN>
+    <ASSIGN line="2">
+        <VARIABLE id="ch" level="0" />
+        <STRING_CONSTANT value="b" />
+    </ASSIGN>
+    <SELECT line="4">
+        <ADD>
+            <VARIABLE id="i" level="0" />
+            <INTEGER_CONSTANT value="1" />
+        </ADD>
+        <SELECT_BRANCH>
+            <SELECT_CONSTANTS>
+                <INTEGER_CONSTANT value="1" />
+            </SELECT_CONSTANTS>
+            <ASSIGN line="5">
+                <VARIABLE id="j" level="0" />
+                <VARIABLE id="i" level="0" />
+            </ASSIGN>
+        </SELECT_BRANCH>
+        <SELECT_BRANCH>
+            <SELECT_CONSTANTS>
+                <INTEGER_CONSTANT value="4" />
+            </SELECT_CONSTANTS>
+            <ASSIGN line="6">
+                <VARIABLE id="j" level="0" />
+                <MULTIPLY>
+                    <INTEGER_CONSTANT value="4" />
+                    <VARIABLE id="i" level="0" />
+                </MULTIPLY>
+            </ASSIGN>
+        </SELECT_BRANCH>
+        <SELECT_BRANCH>
+            <SELECT_CONSTANTS>
+                <INTEGER_CONSTANT value="5" />
+                <INTEGER_CONSTANT value="2" />
+                <INTEGER_CONSTANT value="3" />
+            </SELECT_CONSTANTS>
+            <ASSIGN line="7">
+                <VARIABLE id="j" level="0" />
+                <MULTIPLY>
+                    <INTEGER_CONSTANT value="523" />
+                    <VARIABLE id="i" level="0" />
+                </MULTIPLY>
+            </ASSIGN>
+        </SELECT_BRANCH>
+    </SELECT>
+    <SELECT line="10">
+        <VARIABLE id="ch" level="0" />
+        <SELECT_BRANCH>
+            <SELECT_CONSTANTS>
+                <STRING_CONSTANT value="c" />
+                <STRING_CONSTANT value="b" />
+            </SELECT_CONSTANTS>
+            <ASSIGN line="11">
+                <VARIABLE id="str" level="0" />
+                <STRING_CONSTANT value="p" />
+            </ASSIGN>
+        </SELECT_BRANCH>
+        <SELECT_BRANCH>
+            <SELECT_CONSTANTS>
+                <STRING_CONSTANT value="a" />
+            </SELECT_CONSTANTS>
+            <ASSIGN line="12">
+                <VARIABLE id="str" level="0" />
+                <STRING_CONSTANT value="q" />
+            </ASSIGN>
+        </SELECT_BRANCH>
+    </SELECT>
+    <COMPOUND line="15">
+        <ASSIGN line="15">
+            <VARIABLE id="i" level="0" />
+            <NEGATE>
+                <INTEGER_CONSTANT value="5" />
+            </NEGATE>
+        </ASSIGN>
+        <LOOP line="15">
+            <TEST>
+                <GT>
+                    <VARIABLE id="i" level="0" />
+                    <INTEGER_CONSTANT value="15" />
+                </GT>
+            </TEST>
+            <COMPOUND line="15">
+                <SELECT line="16">
+                    <VARIABLE id="i" level="0" />
+                    <SELECT_BRANCH>
+                        <SELECT_CONSTANTS>
+                            <INTEGER_CONSTANT value="2" />
+                        </SELECT_CONSTANTS>
+                        <ASSIGN line="17">
+                            <VARIABLE id="prime" level="0" />
+                            <VARIABLE id="i" level="0" />
+                        </ASSIGN>
+                    </SELECT_BRANCH>
+                    <SELECT_BRANCH>
+                        <SELECT_CONSTANTS>
+                            <INTEGER_CONSTANT value="-4" />
+                            <INTEGER_CONSTANT value="-2" />
+                            <INTEGER_CONSTANT value="0" />
+                            <INTEGER_CONSTANT value="4" />
+                            <INTEGER_CONSTANT value="6" />
+                            <INTEGER_CONSTANT value="8" />
+                            <INTEGER_CONSTANT value="10" />
+                            <INTEGER_CONSTANT value="12" />
+                        </SELECT_CONSTANTS>
+                        <ASSIGN line="18">
+                            <VARIABLE id="even" level="0" />
+                            <VARIABLE id="i" level="0" />
+                        </ASSIGN>
+                    </SELECT_BRANCH>
+                    <SELECT_BRANCH>
+                        <SELECT_CONSTANTS>
+                            <INTEGER_CONSTANT value="-3" />
+                            <INTEGER_CONSTANT value="-1" />
+                            <INTEGER_CONSTANT value="1" />
+                            <INTEGER_CONSTANT value="3" />
+                            <INTEGER_CONSTANT value="5" />
+                            <INTEGER_CONSTANT value="7" />
+                            <INTEGER_CONSTANT value="9" />
+                            <INTEGER_CONSTANT value="11" />
+                        </SELECT_CONSTANTS>
+                        <SELECT line="19">
+                            <VARIABLE id="i" level="0" />
+                            <SELECT_BRANCH>
+                                <SELECT_CONSTANTS>
+                                    <INTEGER_CONSTANT value="-3" />
+                                    <INTEGER_CONSTANT value="-1" />
+                                    <INTEGER_CONSTANT value="1" />
+                                    <INTEGER_CONSTANT value="9" />
+                                </SELECT_CONSTANTS>
+                                <ASSIGN line="20">
+                                    <VARIABLE id="odd" level="0" />
+                                    <VARIABLE id="i" level="0" />
+                                </ASSIGN>
+                            </SELECT_BRANCH>
+                            <SELECT_BRANCH>
+                                <SELECT_CONSTANTS>
+                                    <INTEGER_CONSTANT value="2" />
+                                    <INTEGER_CONSTANT value="3" />
+                                    <INTEGER_CONSTANT value="5" />
+                                    <INTEGER_CONSTANT value="7" />
+                                    <INTEGER_CONSTANT value="11" />
+                                </SELECT_CONSTANTS>
+                                <ASSIGN line="21">
+                                    <VARIABLE id="prime" level="0" />
+                                    <VARIABLE id="i" level="0" />
+                                </ASSIGN>
+                            </SELECT_BRANCH>
+                        </SELECT>
+                    </SELECT_BRANCH>
+                </SELECT>
+            </COMPOUND>
+            <ASSIGN line="15">
+                <VARIABLE id="i" level="0" />
+                <ADD>
+                    <VARIABLE id="i" level="0" />
+                    <INTEGER_CONSTANT value="1" />
+                </ADD>
+            </ASSIGN>
+        </LOOP>
+    </COMPOUND>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 002: i = 3
+>>> LINE 002: ch = b
+>>> LINE 006: j = 12
+>>> LINE 011: str = p
+>>> LINE 015: i = -5
+>>> LINE 015: i = -4
+>>> LINE 018: even = -4
+>>> LINE 015: i = -3
+>>> LINE 020: odd = -3
+>>> LINE 015: i = -2
+>>> LINE 018: even = -2
+>>> LINE 015: i = -1
+>>> LINE 020: odd = -1
+>>> LINE 015: i = 0
+>>> LINE 018: even = 0
+>>> LINE 015: i = 1
+>>> LINE 020: odd = 1
+>>> LINE 015: i = 2
+>>> LINE 017: prime = 2
+>>> LINE 015: i = 3
+>>> LINE 021: prime = 3
+>>> LINE 015: i = 4
+>>> LINE 018: even = 4
+>>> LINE 015: i = 5
+>>> LINE 021: prime = 5
+>>> LINE 015: i = 6
+>>> LINE 018: even = 6
+>>> LINE 015: i = 7
+>>> LINE 021: prime = 7
+>>> LINE 015: i = 8
+>>> LINE 018: even = 8
+>>> LINE 015: i = 9
+>>> LINE 020: odd = 9
+>>> LINE 015: i = 10
+>>> LINE 018: even = 10
+>>> LINE 015: i = 11
+>>> LINE 021: prime = 11
+>>> LINE 015: i = 12
+>>> LINE 018: even = 12
+>>> LINE 015: i = 13
+>>> LINE 015: i = 14
+>>> LINE 015: i = 15
+>>> LINE 015: i = 16
+
+                  96 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.

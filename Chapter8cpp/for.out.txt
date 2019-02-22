@@ -1,0 +1,185 @@
+001 BEGIN {FOR statements}
+002     j := 1;
+003 
+004     FOR k := j TO 5 DO n := k;
+005 
+006     FOR k := n DOWNTO 1 DO j := k;
+007 
+008     FOR i := 1 TO 2 DO BEGIN
+009         FOR j := 1 TO 3 DO BEGIN
+010             k := i*j
+011         END
+012     END
+013 END.
+
+                  13 source lines.
+                   0 syntax errors.
+                0.00 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+Identifier       Line numbers    
+----------       ------------    
+i                008 010
+j                002 004 006 009 010
+k                004 004 006 006 010
+n                004 006
+
+===== INTERMEDIATE CODE =====
+
+<COMPOUND line="1">
+    <ASSIGN line="2">
+        <VARIABLE id="j" level="0" />
+        <INTEGER_CONSTANT value="1" />
+    </ASSIGN>
+    <COMPOUND line="4">
+        <ASSIGN line="4">
+            <VARIABLE id="k" level="0" />
+            <VARIABLE id="j" level="0" />
+        </ASSIGN>
+        <LOOP line="4">
+            <TEST>
+                <GT>
+                    <VARIABLE id="k" level="0" />
+                    <INTEGER_CONSTANT value="5" />
+                </GT>
+            </TEST>
+            <ASSIGN line="4">
+                <VARIABLE id="n" level="0" />
+                <VARIABLE id="k" level="0" />
+            </ASSIGN>
+            <ASSIGN line="4">
+                <VARIABLE id="k" level="0" />
+                <ADD>
+                    <VARIABLE id="k" level="0" />
+                    <INTEGER_CONSTANT value="1" />
+                </ADD>
+            </ASSIGN>
+        </LOOP>
+    </COMPOUND>
+    <COMPOUND line="6">
+        <ASSIGN line="6">
+            <VARIABLE id="k" level="0" />
+            <VARIABLE id="n" level="0" />
+        </ASSIGN>
+        <LOOP line="6">
+            <TEST>
+                <LT>
+                    <VARIABLE id="k" level="0" />
+                    <INTEGER_CONSTANT value="1" />
+                </LT>
+            </TEST>
+            <ASSIGN line="6">
+                <VARIABLE id="j" level="0" />
+                <VARIABLE id="k" level="0" />
+            </ASSIGN>
+            <ASSIGN line="6">
+                <VARIABLE id="k" level="0" />
+                <SUBTRACT>
+                    <VARIABLE id="k" level="0" />
+                    <INTEGER_CONSTANT value="1" />
+                </SUBTRACT>
+            </ASSIGN>
+        </LOOP>
+    </COMPOUND>
+    <COMPOUND line="8">
+        <ASSIGN line="8">
+            <VARIABLE id="i" level="0" />
+            <INTEGER_CONSTANT value="1" />
+        </ASSIGN>
+        <LOOP line="8">
+            <TEST>
+                <GT>
+                    <VARIABLE id="i" level="0" />
+                    <INTEGER_CONSTANT value="2" />
+                </GT>
+            </TEST>
+            <COMPOUND line="8">
+                <COMPOUND line="9">
+                    <ASSIGN line="9">
+                        <VARIABLE id="j" level="0" />
+                        <INTEGER_CONSTANT value="1" />
+                    </ASSIGN>
+                    <LOOP line="9">
+                        <TEST>
+                            <GT>
+                                <VARIABLE id="j" level="0" />
+                                <INTEGER_CONSTANT value="3" />
+                            </GT>
+                        </TEST>
+                        <COMPOUND line="9">
+                            <ASSIGN line="10">
+                                <VARIABLE id="k" level="0" />
+                                <MULTIPLY>
+                                    <VARIABLE id="i" level="0" />
+                                    <VARIABLE id="j" level="0" />
+                                </MULTIPLY>
+                            </ASSIGN>
+                        </COMPOUND>
+                        <ASSIGN line="9">
+                            <VARIABLE id="j" level="0" />
+                            <ADD>
+                                <VARIABLE id="j" level="0" />
+                                <INTEGER_CONSTANT value="1" />
+                            </ADD>
+                        </ASSIGN>
+                    </LOOP>
+                </COMPOUND>
+            </COMPOUND>
+            <ASSIGN line="8">
+                <VARIABLE id="i" level="0" />
+                <ADD>
+                    <VARIABLE id="i" level="0" />
+                    <INTEGER_CONSTANT value="1" />
+                </ADD>
+            </ASSIGN>
+        </LOOP>
+    </COMPOUND>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 002: j = 1
+>>> LINE 004: k = 1
+>>> LINE 004: n = 1
+>>> LINE 004: k = 2
+>>> LINE 004: n = 2
+>>> LINE 004: k = 3
+>>> LINE 004: n = 3
+>>> LINE 004: k = 4
+>>> LINE 004: n = 4
+>>> LINE 004: k = 5
+>>> LINE 004: n = 5
+>>> LINE 004: k = 6
+>>> LINE 006: k = 5
+>>> LINE 006: j = 5
+>>> LINE 006: k = 4
+>>> LINE 006: j = 4
+>>> LINE 006: k = 3
+>>> LINE 006: j = 3
+>>> LINE 006: k = 2
+>>> LINE 006: j = 2
+>>> LINE 006: k = 1
+>>> LINE 006: j = 1
+>>> LINE 006: k = 0
+>>> LINE 008: i = 1
+>>> LINE 009: j = 1
+>>> LINE 010: k = 1
+>>> LINE 009: j = 2
+>>> LINE 010: k = 2
+>>> LINE 009: j = 3
+>>> LINE 010: k = 3
+>>> LINE 009: j = 4
+>>> LINE 008: i = 2
+>>> LINE 009: j = 1
+>>> LINE 010: k = 2
+>>> LINE 009: j = 2
+>>> LINE 010: k = 4
+>>> LINE 009: j = 3
+>>> LINE 010: k = 6
+>>> LINE 009: j = 4
+>>> LINE 008: i = 3
+
+                  63 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.

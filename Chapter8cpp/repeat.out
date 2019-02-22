@@ -1,0 +1,82 @@
+001 BEGIN {Calculate the square root of 4 using Newton's method.}
+002     number := 4;
+003     root := number;
+004 
+005     REPEAT
+006         partial := number/root + root;
+007         root := partial/2
+008     UNTIL root*root - number < 0.000001
+009 END.
+
+                   9 source lines.
+                   0 syntax errors.
+                0.00 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+Identifier       Line numbers    
+----------       ------------    
+number           002 003 006 008
+partial          006 007
+root             003 006 006 007 008 008
+
+===== INTERMEDIATE CODE =====
+
+<COMPOUND line="1">
+    <ASSIGN line="2">
+        <VARIABLE id="number" level="0" />
+        <INTEGER_CONSTANT value="4" />
+    </ASSIGN>
+    <ASSIGN line="3">
+        <VARIABLE id="root" level="0" />
+        <VARIABLE id="number" level="0" />
+    </ASSIGN>
+    <LOOP line="5">
+        <ASSIGN line="6">
+            <VARIABLE id="partial" level="0" />
+            <ADD>
+                <FLOAT_DIVIDE>
+                    <VARIABLE id="number" level="0" />
+                    <VARIABLE id="root" level="0" />
+                </FLOAT_DIVIDE>
+                <VARIABLE id="root" level="0" />
+            </ADD>
+        </ASSIGN>
+        <ASSIGN line="7">
+            <VARIABLE id="root" level="0" />
+            <FLOAT_DIVIDE>
+                <VARIABLE id="partial" level="0" />
+                <INTEGER_CONSTANT value="2" />
+            </FLOAT_DIVIDE>
+        </ASSIGN>
+        <TEST>
+            <LT>
+                <SUBTRACT>
+                    <MULTIPLY>
+                        <VARIABLE id="root" level="0" />
+                        <VARIABLE id="root" level="0" />
+                    </MULTIPLY>
+                    <VARIABLE id="number" level="0" />
+                </SUBTRACT>
+                <REAL_CONSTANT value="0.000001" />
+            </LT>
+        </TEST>
+    </LOOP>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 002: number = 4
+>>> LINE 003: root = 4
+>>> LINE 006: partial = 5.000000
+>>> LINE 007: root = 2.500000
+>>> LINE 006: partial = 4.100000
+>>> LINE 007: root = 2.050000
+>>> LINE 006: partial = 4.001220
+>>> LINE 007: root = 2.000610
+>>> LINE 006: partial = 4.000000
+>>> LINE 007: root = 2.000000
+
+                  14 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.

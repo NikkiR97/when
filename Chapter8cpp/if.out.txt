@@ -1,0 +1,151 @@
+001 BEGIN {IF statements}
+002     i := 3;  j := 4;
+003 
+004     IF i = j THEN t := 200
+005              ELSE f := -200;
+006 
+007     IF i < j THEN t := 300;
+008 
+009     {Cascading IF THEN ELSEs.}
+010     IF      i = 1 THEN f := 10
+011     ELSE IF i = 2 THEN f := 20
+012     ELSE IF i = 3 THEN t := 30
+013     ELSE IF i = 4 THEN f := 40
+014     ELSE               f := -1;
+015 
+016     {The "dangling ELSE".}
+017     IF i = 3 THEN IF j = 2 THEN t := 500 ELSE f := -500;
+018 END.
+
+                  18 source lines.
+                   0 syntax errors.
+                0.00 seconds total parsing time.
+
+===== CROSS-REFERENCE TABLE =====
+
+Identifier       Line numbers    
+----------       ------------    
+f                005 010 011 013 014 017
+i                002 004 007 010 011 012 013 017
+j                002 004 007 017
+t                004 007 012 017
+
+===== INTERMEDIATE CODE =====
+
+<COMPOUND line="1">
+    <ASSIGN line="2">
+        <VARIABLE id="i" level="0" />
+        <INTEGER_CONSTANT value="3" />
+    </ASSIGN>
+    <ASSIGN line="2">
+        <VARIABLE id="j" level="0" />
+        <INTEGER_CONSTANT value="4" />
+    </ASSIGN>
+    <IF line="4">
+        <EQ>
+            <VARIABLE id="i" level="0" />
+            <VARIABLE id="j" level="0" />
+        </EQ>
+        <ASSIGN line="4">
+            <VARIABLE id="t" level="0" />
+            <INTEGER_CONSTANT value="200" />
+        </ASSIGN>
+        <ASSIGN line="5">
+            <VARIABLE id="f" level="0" />
+            <NEGATE>
+                <INTEGER_CONSTANT value="200" />
+            </NEGATE>
+        </ASSIGN>
+    </IF>
+    <IF line="7">
+        <LT>
+            <VARIABLE id="i" level="0" />
+            <VARIABLE id="j" level="0" />
+        </LT>
+        <ASSIGN line="7">
+            <VARIABLE id="t" level="0" />
+            <INTEGER_CONSTANT value="300" />
+        </ASSIGN>
+    </IF>
+    <IF line="10">
+        <EQ>
+            <VARIABLE id="i" level="0" />
+            <INTEGER_CONSTANT value="1" />
+        </EQ>
+        <ASSIGN line="10">
+            <VARIABLE id="f" level="0" />
+            <INTEGER_CONSTANT value="10" />
+        </ASSIGN>
+        <IF line="11">
+            <EQ>
+                <VARIABLE id="i" level="0" />
+                <INTEGER_CONSTANT value="2" />
+            </EQ>
+            <ASSIGN line="11">
+                <VARIABLE id="f" level="0" />
+                <INTEGER_CONSTANT value="20" />
+            </ASSIGN>
+            <IF line="12">
+                <EQ>
+                    <VARIABLE id="i" level="0" />
+                    <INTEGER_CONSTANT value="3" />
+                </EQ>
+                <ASSIGN line="12">
+                    <VARIABLE id="t" level="0" />
+                    <INTEGER_CONSTANT value="30" />
+                </ASSIGN>
+                <IF line="13">
+                    <EQ>
+                        <VARIABLE id="i" level="0" />
+                        <INTEGER_CONSTANT value="4" />
+                    </EQ>
+                    <ASSIGN line="13">
+                        <VARIABLE id="f" level="0" />
+                        <INTEGER_CONSTANT value="40" />
+                    </ASSIGN>
+                    <ASSIGN line="14">
+                        <VARIABLE id="f" level="0" />
+                        <NEGATE>
+                            <INTEGER_CONSTANT value="1" />
+                        </NEGATE>
+                    </ASSIGN>
+                </IF>
+            </IF>
+        </IF>
+    </IF>
+    <IF line="17">
+        <EQ>
+            <VARIABLE id="i" level="0" />
+            <INTEGER_CONSTANT value="3" />
+        </EQ>
+        <IF line="17">
+            <EQ>
+                <VARIABLE id="j" level="0" />
+                <INTEGER_CONSTANT value="2" />
+            </EQ>
+            <ASSIGN line="17">
+                <VARIABLE id="t" level="0" />
+                <INTEGER_CONSTANT value="500" />
+            </ASSIGN>
+            <ASSIGN line="17">
+                <VARIABLE id="f" level="0" />
+                <NEGATE>
+                    <INTEGER_CONSTANT value="500" />
+                </NEGATE>
+            </ASSIGN>
+        </IF>
+    </IF>
+</COMPOUND>
+
+===== OUTPUT =====
+
+>>> LINE 002: i = 3
+>>> LINE 002: j = 4
+>>> LINE 005: f = -200
+>>> LINE 007: t = 300
+>>> LINE 012: t = 30
+>>> LINE 017: f = -500
+
+                  13 statements executed.
+                   0 runtime errors.
+                0.00 seconds total execution time.
