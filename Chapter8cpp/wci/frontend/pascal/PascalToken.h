@@ -32,7 +32,7 @@ enum class PascalTokenType
     THEN, TO, TYPE, UNTIL, VAR, WHILE, WITH,
 
     // Special symbols.
-    PLUS, MINUS, STAR, SLASH, COLON_EQUALS,
+    ARROW, PLUS, MINUS, STAR, SLASH, COLON_EQUALS,
     DOT, COMMA, SEMICOLON, COLON, QUOTE,
     EQUALS, NOT_EQUALS, LESS_THAN, LESS_EQUALS,
     GREATER_EQUALS, GREATER_THAN, LEFT_PAREN, RIGHT_PAREN,
@@ -83,6 +83,7 @@ constexpr PascalTokenType PT_VAR = PascalTokenType::VAR;
 constexpr PascalTokenType PT_WHILE = PascalTokenType::WHILE;
 constexpr PascalTokenType PT_WITH = PascalTokenType::WITH;
 
+constexpr PascalTokenType PT_ARROW = PascalTokenType::ARROW;
 constexpr PascalTokenType PT_PLUS = PascalTokenType::PLUS;
 constexpr PascalTokenType PT_MINUS = PascalTokenType::MINUS;
 constexpr PascalTokenType PT_STAR = PascalTokenType::STAR;
