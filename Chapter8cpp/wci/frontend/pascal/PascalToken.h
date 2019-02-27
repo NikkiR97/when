@@ -82,8 +82,8 @@ constexpr PascalTokenType PT_UNTIL = PascalTokenType::UNTIL;
 constexpr PascalTokenType PT_VAR = PascalTokenType::VAR;
 constexpr PascalTokenType PT_WHILE = PascalTokenType::WHILE;
 constexpr PascalTokenType PT_WITH = PascalTokenType::WITH;
-constexpr PascalTokenType PT_WITH = PascalTokenType::WHEN;
-constexpr PascalTokenType PT_WITH = PascalTokenType::OTHERWISE;
+constexpr PascalTokenType PT_WHEN = PascalTokenType::WHEN;
+constexpr PascalTokenType PT_OTHERWISE = PascalTokenType::OTHERWISE;
 
 constexpr PascalTokenType PT_ARROW = PascalTokenType::ARROW;
 constexpr PascalTokenType PT_PLUS = PascalTokenType::PLUS;
@@ -111,7 +111,7 @@ constexpr PascalTokenType PT_LEFT_BRACE = PascalTokenType::LEFT_BRACE;
 constexpr PascalTokenType PT_RIGHT_BRACE = PascalTokenType::RIGHT_BRACE;
 constexpr PascalTokenType PT_UP_ARROW = PascalTokenType::UP_ARROW;
 constexpr PascalTokenType PT_DOT_DOT = PascalTokenType::DOT_DOT;
-constexpr PascalTokenType PT_DOT_DOT = PascalTokenType::ASSIGN;
+constexpr PascalTokenType PT_ASSIGN = PascalTokenType::ASSIGN;
 
 constexpr PascalTokenType PT_IDENTIFIER = PascalTokenType::IDENTIFIER;
 constexpr PascalTokenType PT_INTEGER = PascalTokenType::INTEGER;
