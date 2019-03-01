@@ -62,6 +62,7 @@ enum class PascalErrorCode
     MISSING_RIGHT_PAREN,
     MISSING_SEMICOLON,
     MISSING_THEN,
+	MISSING_ARROW,
     MISSING_TO_DOWNTO,
     MISSING_UNTIL,
     MISSING_VARIABLE,
@@ -125,6 +126,7 @@ constexpr PascalErrorCode MISSING_RIGHT_BRACKET = PascalErrorCode::MISSING_RIGHT
 constexpr PascalErrorCode MISSING_RIGHT_PAREN = PascalErrorCode::MISSING_RIGHT_PAREN;
 constexpr PascalErrorCode MISSING_SEMICOLON = PascalErrorCode::MISSING_SEMICOLON;
 constexpr PascalErrorCode MISSING_THEN = PascalErrorCode::MISSING_THEN;
+constexpr PascalErrorCode MISSING_THEN = PascalErrorCode::MISSING_ARROW;
 constexpr PascalErrorCode MISSING_TO_DOWNTO = PascalErrorCode::MISSING_TO_DOWNTO;
 constexpr PascalErrorCode MISSING_UNTIL = PascalErrorCode::MISSING_UNTIL;
 constexpr PascalErrorCode MISSING_VARIABLE = PascalErrorCode::MISSING_VARIABLE;
