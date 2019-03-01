@@ -15,6 +15,7 @@
 #include "ForStatementParser.h"
 #include "IfStatementParser.h"
 #include "CaseStatementParser.h"
+#include "WhenStatementParser.h"
 #include "../PascalParserTD.h"
 #include "../PascalToken.h"
 #include "../PascalError.h"
