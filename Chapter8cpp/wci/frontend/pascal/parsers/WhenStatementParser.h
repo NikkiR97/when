@@ -37,6 +37,7 @@ public:
      * @throw a string message if an error occurred.
      */
     ICodeNode *parse_statement(Token *token) throw (string);
+    ICodeNode *parse_when_branch(Token *token);
 
 private:
     // Synchronization set for THEN.

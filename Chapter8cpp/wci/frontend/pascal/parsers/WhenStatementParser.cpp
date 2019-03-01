@@ -57,45 +57,64 @@ WhenStatementParser::WhenStatementParser(PascalParserTD *parent)
 
 ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 {
-    token = next_token(token);  // consume the IF
-
-    // Create an IF node.
+	// Create an IF node.
     ICodeNode *if_node =
-            ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+	ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+
+    ICodeNode *lowest_node =
+    			ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+
+    ICodeNode *newest_node =
+    			ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+
+	// Parse the expression.
+	// The IF node adopts the expression subtree as its first child.
+	ExpressionParser expression_parser(this);
+	if_node->add_child(expression_parser.parse_statement(token));
+
+	// Synchronize at the THEN.
+	token = synchronize(ARROW_SET);
+	if (token->get_type() == (TokenType) PT_ARROW)
+	{
+		token = next_token(token);  // consume the THEN
+	}
+	else {
+		error_handler.flag(token, MISSING_ARROW, this);
+	}
+
+	// Parse the THEN statement.
+	// The IF node adopts the statement subtree as its second child.
+	StatementParser statement_parser(this);
+	if_node->add_child(statement_parser.parse_statement(token));
+	token = current_token();
+
+	while(token->get_type() != (TokenType) PT_OTHERWISE
+			|| token->get_type() != (TokenType) PT_END){
+
+		newest_node = parse_when_branch(token);
+		lowest_node->add_child(newest_node);
+		lowest_node=newest_node;
+	}
+
+	if(token->get_type() != (TokenType) PT_OTHERWISE){
+		//call statementparser to read otherwise statement
+	}
 
 
-    // Parse the expression.
-    // The IF node adopts the expression subtree as its first child.
-    ExpressionParser expression_parser(this);
-    if_node->add_child(expression_parser.parse_statement(token));
-
-    // Synchronize at the THEN.
-    token = synchronize(ARROW_SET);
-    if (token->get_type() == (TokenType) PT_THEN)
-    {
-        token = next_token(token);  // consume the THEN
-    }
-    else {
-        error_handler.flag(token, MISSING_ARROW, this);
-    }
-
-    // Parse the THEN statement.
-    // The IF node adopts the statement subtree as its second child.
-    StatementParser statement_parser(this);
-    if_node->add_child(statement_parser.parse_statement(token));
-    token = current_token();
-
-    // Look for an ELSE.
-    if (token->get_type() == (TokenType) PT_ELSE)
-    {
-        token = next_token(token);  // consume the THEN
-
-        // Parse the ELSE statement.
-        // The IF node adopts the statement subtree as its third child.
-        if_node->add_child(statement_parser.parse_statement(token));
-    }
 
     return if_node;
 }
+
+ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
+		token = next_token(token);  // consume the WHEN
+		ICodeNode *new_node =
+			ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+
+
+
+	    return new_node;
+}
+
+
 
 }}}}  // namespace wci::frontend::pascal::parsers
