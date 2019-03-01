@@ -132,7 +132,7 @@ void PascalError::initialize()
         "Missing )",
         "Missing ;",
         "Missing THEN",
-		"Missing ARROW",
+		"Missing =>",
         "Missing TO or DOWNTO",
         "Missing UNTIL",
         "Missing variable",
