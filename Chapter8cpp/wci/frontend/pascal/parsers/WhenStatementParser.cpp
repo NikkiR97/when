@@ -114,27 +114,28 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 }
 
 ICodeNode *WhenStatementParser::parse_when_branch(Token *token, bool& whenTreeDone){
-		  // consume the WHEN
-		ICodeNode *new_node =
-				ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
+	// consume the WHEN
+	ICodeNode *new_node =
+			ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
 
 
-		ExpressionParser expression_parser(this);
-		if(token->get_type() == (TokenType) PT_OTHERWISE){
-			cout<<"Inside otherwise block"<<endl;
-			token = next_token(token); //consume the token
+	ExpressionParser expression_parser(this);
+	if(token->get_type() == (TokenType) PT_OTHERWISE){
+		cout<<"Inside otherwise block"<<endl;
+		token = next_token(token); //consume the token
 
 
 			// Synchronize at the THEN.
-			token = synchronize(ARROW_SET);
-			if (token->get_type() == (TokenType) PT_ARROW)
-			{
-				token = next_token(token);  // consume the THEN
-			}
+		token = synchronize(ARROW_SET);
+		if (token->get_type() == (TokenType) PT_ARROW)
+		{
+			token = next_token(token);  // consume the THEN
+		}
 
-			else {
-				   error_handler.flag(token, MISSING_ARROW, this);
-			}
+		else
+		{
+			error_handler.flag(token, MISSING_ARROW, this);
+		}
 
 			StatementParser statement_parser(this);
 			new_node->add_child(statement_parser.parse_statement(token));
@@ -143,16 +144,17 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token, bool& whenTreeDo
 			if (token->get_type() == (TokenType) PT_END)
 			{
 				cout<<"Consuming END"<<endl;
-				token = next_token(token);  // consume the END
-				token = next_token(token);  // consume the END
+				cout<<"Returning from parse_when_branch"<<endl;
+
+				whenTreeDone=true;
+				return new_node;
 			}
 
 			else
 			{
 				error_handler.flag(token, MISSING_END, this);
 			}
-			whenTreeDone=true;
-			return new_node;
+
 		}
 		else{new_node->add_child(expression_parser.parse_statement(token));}
 
