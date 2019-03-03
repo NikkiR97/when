@@ -95,9 +95,11 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 	if_node->add_child(statement_parser.parse_statement(token));
 	token = current_token();
 
+
+
 	while(token->get_type() != (TokenType) PT_OTHERWISE
 			|| token->get_type() != (TokenType) PT_END){
-
+		token = next_token(token); //consume the token
 		newest_node = parse_when_branch(token);
 		lowest_node->add_child(newest_node);
 		lowest_node=newest_node;
