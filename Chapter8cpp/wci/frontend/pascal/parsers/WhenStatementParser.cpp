@@ -95,21 +95,17 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 	if_node->add_child(statement_parser.parse_statement(token));
 	token = current_token();
 
-
+	token = next_token(token); //consume the tokens
 
 	while(token->get_type() != (TokenType) PT_OTHERWISE
 			|| token->get_type() != (TokenType) PT_END){
-		token = next_token(token); //consume the token
 		newest_node = parse_when_branch(token);
 		lowest_node->add_child(newest_node);
 		lowest_node=newest_node;
+		token = next_token(token); //consume the token
 	}
 
-	if(token->get_type() != (TokenType) PT_OTHERWISE){
-		StatementParser statement_parser(this);
-		if_node->add_child(statement_parser.parse_statement(token));
-		token = current_token();
-	}
+
 
 
     return if_node;
@@ -120,8 +116,16 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
 		ICodeNode *new_node =
 				ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
 
+
 		ExpressionParser expression_parser(this);
-		new_node->add_child(expression_parser.parse_statement(token));
+		if(token->get_type() == (TokenType) PT_OTHERWISE){
+					cout<<"Inside otherwise block"<<endl;
+					token = next_token(token); //consume the token
+					new_node->add_child(expression_parser.parse_statement(token));
+				}
+		else{new_node->add_child(expression_parser.parse_statement(token));}
+
+
 
 		// Synchronize at the THEN.
 		token = synchronize(ARROW_SET);
@@ -134,8 +138,6 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
 			error_handler.flag(token, MISSING_ARROW, this);
 		}
 
-		// Parse the THEN statement.
-		// The IF node adopts the statement subtree as its second child.
 		StatementParser statement_parser(this);
 		new_node->add_child(statement_parser.parse_statement(token));
 		token = current_token();
