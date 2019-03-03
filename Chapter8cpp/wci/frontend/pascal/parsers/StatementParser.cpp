@@ -102,7 +102,7 @@ ICodeNode *StatementParser::parse_statement(Token *token) throw (string)
            WhenStatementParser when_parser(this);
            statement_node = when_parser.parse_statement(token);
            break;
-         }
+        }
 
         case PT_CASE:
         {
