@@ -33,6 +33,7 @@ set<PascalTokenType> WhenStatementParser::ARROW_SET;
 
 void WhenStatementParser::initialize()
 {
+	cout<<"Inside initalize whenstatementparser"<<endl;
     if (INITIALIZED) return;
 
     ARROW_SET = StatementParser::STMT_START_SET;
@@ -57,6 +58,8 @@ WhenStatementParser::WhenStatementParser(PascalParserTD *parent)
 
 ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 {
+	token = next_token(token); //consume the token
+
 	// Create an IF node.
     ICodeNode *if_node =
     		ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
@@ -70,10 +73,14 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 	// Parse the expression.
 	// The IF node adopts the expression subtree as its first child.
 	ExpressionParser expression_parser(this);
-	if_node->add_child(expression_parser.parse_statement(token));
 
-	// Synchronize at the THEN.
-	token = synchronize(ARROW_SET);
+	if_node->add_child(expression_parser.parse_statement(token));
+	//UNEXPECTED TOKEN ERROR ON THE ABOVE LINE
+
+
+
+	// Synchronize at the ARROW.
+	token = synchronize(ARROW_SET); //THIS LINE PRINTS "UNEXPECTED ARROW"
 	if (token->get_type() == (TokenType) PT_ARROW)
 	{
 		token = next_token(token);  // consume the THEN
@@ -107,7 +114,7 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 }
 
 ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
-		token = next_token(token);  // consume the WHEN
+		  // consume the WHEN
 		ICodeNode *new_node =
 				ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
 
