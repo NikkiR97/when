@@ -39,6 +39,8 @@ void WhenStatementParser::initialize()
     ARROW_SET = StatementParser::STMT_START_SET;
     ARROW_SET.insert(PascalTokenType::ARROW);
 
+
+
     set<PascalTokenType>::iterator it;
     for (it  = StatementParser::STMT_FOLLOW_SET.begin();
          it != StatementParser::STMT_FOLLOW_SET.end();
@@ -97,22 +99,21 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 
 	token = next_token(token); //consume the tokens
 
-	while(token->get_type() != (TokenType) PT_OTHERWISE
-			|| token->get_type() != (TokenType) PT_END){
+	bool whenTreeDone = false;
+	while(!whenTreeDone){
 
-		newest_node = parse_when_branch(token);
-		lowest_node->add_child(newest_node);
-		lowest_node=newest_node;
+		newest_node = parse_when_branch(token, whenTreeDone);
+		lowest_node ->add_child(newest_node);
+		lowest_node = newest_node;
 		token = next_token(token); //consume the token
 	}
 
 
-
-
+	cout<<"Returning"<<endl;
     return if_node;
 }
 
-ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
+ICodeNode *WhenStatementParser::parse_when_branch(Token *token, bool& whenTreeDone){
 		  // consume the WHEN
 		ICodeNode *new_node =
 				ICodeFactory::create_icode_node((ICodeNodeType) NT_IF);
@@ -139,6 +140,18 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token){
 			new_node->add_child(statement_parser.parse_statement(token));
 			token = current_token();
 
+			if (token->get_type() == (TokenType) PT_END)
+			{
+				cout<<"Consuming END"<<endl;
+				token = next_token(token);  // consume the END
+				token = next_token(token);  // consume the END
+			}
+
+			else
+			{
+				error_handler.flag(token, MISSING_END, this);
+			}
+			whenTreeDone=true;
 			return new_node;
 		}
 		else{new_node->add_child(expression_parser.parse_statement(token));}
