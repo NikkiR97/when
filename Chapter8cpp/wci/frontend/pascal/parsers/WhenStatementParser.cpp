@@ -102,6 +102,9 @@ ICodeNode *WhenStatementParser::parse_statement(Token *token) throw (string)
 	bool whenTreeDone = false;
 	while(!whenTreeDone){
 		token = next_token(token); //consume the semicolon
+		if(token->get_type() == (TokenType) PT_END){
+			break;
+		}
 		newest_node = parse_when_branch(token, whenTreeDone);
 		lowest_node ->add_child(newest_node);
 		lowest_node = newest_node;
@@ -168,7 +171,7 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token, bool& whenTreeDo
 			return new_node;
 
 		}
-		else if(token->get_type() == (TokenType) PT_END){whenTreeDone = true;}
+		//else if(token->get_type() == (TokenType) PT_END){whenTreeDone = true;}
 		else{new_node->add_child(expression_parser.parse_statement(token));}
 
 		// Synchronize at the THEN.
