@@ -168,6 +168,7 @@ ICodeNode *WhenStatementParser::parse_when_branch(Token *token, bool& whenTreeDo
 			return new_node;
 
 		}
+		else if(token->get_type() == (TokenType) PT_END){whenTreeDone = true;}
 		else{new_node->add_child(expression_parser.parse_statement(token));}
 
 		// Synchronize at the THEN.
